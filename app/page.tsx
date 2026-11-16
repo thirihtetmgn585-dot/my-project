@@ -72,7 +72,10 @@ export default function Home() {
           background: "#8b5e3c",
           color: "white",
           fontSize: "16px",
+          fontWeight: "bold",
           textDecoration: "none",
+          transition: "background 0.2s ease",
+          boxShadow: "0 6px 14px rgba(80, 50, 20, 0.18)",
         }}
       >
         Explore books
@@ -91,16 +94,31 @@ export default function Home() {
               boxShadow: "0 8px 24px rgba(80, 50, 20, 0.12)",
             }}
           >
-            <div
+            <img
+              src="/alchemist.jpg"
+              alt="The Alchemist book cover"
               style={{
-                height: "180px",
+                width: "100%",
+                height: "270px",
+                objectFit: "cover",
                 borderRadius: "10px",
-                background: "#8b5e3c",
                 marginBottom: "18px",
               }}
             />
             <h3>The Alchemist</h3>
             <p>A story about dreams, courage, and finding your path.</p>
+            <a
+              href="https://www.goodreads.com/book/show/865.The_Alchemist"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "#8b5e3c",
+                fontWeight: "bold",
+                textDecoration: "none",
+              }}
+            >
+              View book →
+            </a>
           </article>
 
           <article
@@ -113,8 +131,31 @@ export default function Home() {
               boxShadow: "0 8px 24px rgba(80, 50, 20, 0.12)",
             }}
           >
+            <img
+              src="/atomic-habits.jpg"
+              alt="Atomic Habits book cover"
+              style={{
+                width: "100%",
+                height: "270px",
+                objectFit: "cover",
+                borderRadius: "10px",
+                marginBottom: "18px",
+              }}
+            />
             <h3>Atomic Habits</h3>
             <p>Small changes that create powerful results.</p>
+            <a
+              href="https://www.goodreads.com/book/show/40121378-atomic-habits"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textDecoration: "none",
+              }}
+            >
+              View book →
+            </a>
           </article>
 
           <article
@@ -127,8 +168,31 @@ export default function Home() {
               boxShadow: "0 8px 24px rgba(80, 50, 20, 0.12)",
             }}
           >
+            <img
+              src="/deep-work.jpg"
+              alt="Deep Work book cover"
+              style={{
+                width: "100%",
+                height: "270px",
+                objectFit: "cover",
+                borderRadius: "10px",
+                marginBottom: "18px",
+              }}
+            />
             <h3>Deep Work</h3>
             <p>How to focus and produce meaningful work.</p>
+            <a
+              href="https://www.goodreads.com/book/show/25744928-deep-work"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "#241f1a",
+                fontWeight: "bold",
+                textDecoration: "none",
+              }}
+            >
+              View book →
+            </a>
           </article>
         </div>
       </section>
