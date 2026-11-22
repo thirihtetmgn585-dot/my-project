@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getBook } from "../../../../data/books";
 import ReaderControls from "../../../ReaderControls";
 
+export const instant = false;
 
 export default async function ChapterPage({ params }: { params: Promise<{ bookId: string; chapterId: string }> }) {
   const { bookId, chapterId } = await params;

@@ -21,7 +21,14 @@ export default function GenreCatalog({ books }: { books: Book[] }) {
       <section className="book-grid">
         {visibleBooks.map((book) => (
           <article className="reader-card" key={book.id}>
-            <div className="cover-placeholder">{book.genre}</div>
+            {book.cover ? (
+              <img className="cover-placeholder book-cover" src={book.cover} alt={`Cover of ${book.title}`} />
+            ) : (
+              <div className="cover-placeholder">{book.genre}</div>
+            )}
+            <p className={`availability ${book.status}`}>
+              {book.status === "available" ? `${book.chapters.length} chapters available` : "Reading text not yet available"}
+            </p>
             <h2>{book.title}</h2>
             <p>{book.description}</p>
             <p className="metadata">Author: {book.originalAuthor}<br />Translator: {book.translator}</p>

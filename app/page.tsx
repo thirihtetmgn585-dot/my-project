@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import VoiceSearch from "./VoiceSearch";
 export default function Home() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -35,22 +37,32 @@ export default function Home() {
         }}
       >
         <strong style={{ fontSize: "22px" }}>Booklish</strong>
-        <div style={{ display: "flex", gap: "24px" }}>
+        <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
           <a
-            href="/books"
-            style={{ color: "#8b5e3c", textDecoration: "none", fontWeight: "bold" }}
-          >
-            Myanmar novels
-          </a>
-          <a
-            href="#books"
+            href="/create-book"
             style={{
               color: "#8b5e3c",
               textDecoration: "none",
               fontWeight: "bold",
             }}
           >
-            Books
+            Create book
+          </a>
+          <a
+            href="/library"
+            style={{ color: "#8b5e3c", textDecoration: "none", fontWeight: "bold" }}
+          >
+            My library
+          </a>
+          <a
+            href="/books"
+            style={{
+              color: "#8b5e3c",
+              textDecoration: "none",
+              fontWeight: "bold",
+            }}
+          >
+            All novels
           </a>
           <a
             href="#books"
@@ -72,6 +84,21 @@ export default function Home() {
           >
             Contact
           </a>{" "}
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <button type="button" style={{ border: "none", background: "transparent", color: "#8b5e3c", fontWeight: "bold", cursor: "pointer", fontSize: "16px" }}>
+                Sign in
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button type="button" style={{ border: "none", borderRadius: "999px", padding: "10px 16px", background: "#8b5e3c", color: "white", fontWeight: "bold", cursor: "pointer", fontSize: "16px" }}>
+                Sign up
+              </button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
         </div>
       </nav>
 
@@ -144,6 +171,7 @@ export default function Home() {
           {isLoading ? "Searching..." : "Search"}
         </button>
       </div>
+      <VoiceSearch />
       {query && (
         <p style={{ marginTop: "16px", color: "#3f5c55" }}>
           Searching for: {query}

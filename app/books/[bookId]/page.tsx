@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBook } from "../../data/books";
 
+export const instant = false;
 
 export default async function BookDetailsPage({ params }: { params: Promise<{ bookId: string }> }) {
   const { bookId } = await params;
