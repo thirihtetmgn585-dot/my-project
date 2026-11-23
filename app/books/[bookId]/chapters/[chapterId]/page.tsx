@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBook } from "../../../../data/books";
 import ReaderControls from "../../../ReaderControls";
+import BookVoice from "../../../../BookVoice";
 
 export const instant = false;
 
@@ -21,6 +22,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
       <Link href={`/books/${book.id}`} className="back-link">← Back to chapters</Link>
       <p className="eyebrow">{book.title}</p>
       <h1>{chapter.title}</h1>
+      <BookVoice title={book.title} text={chapter.parts.map((part) => part.text).join("\n\n")} />
       <nav className="chapter-navigation" aria-label="Chapter navigation">
         {previousChapter ? (
           <Link href={`/books/${book.id}/chapters/${previousChapter.id}`} className="chapter-link">
