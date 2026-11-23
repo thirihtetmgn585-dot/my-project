@@ -92,7 +92,7 @@ export function getBook(bookId: string) {
     originalAuthor: "Author information not verified",
     translator: "Translator information not verified",
     genre: "Uncategorized",
-    description: "This search result has no authorized reading text in Booklish yet.",
+    description: "A book discovered through the Booklish search catalog.",
     status: "unavailable" as const,
     chapters: [],
   };

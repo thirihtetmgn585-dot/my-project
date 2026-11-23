@@ -19,7 +19,7 @@ export default async function BookDetailsPage({ params, searchParams }: { params
       {isSearchResult && search.cover && <img className="search-result-cover" src={search.cover} alt={`${book.title} cover`} />}
       {isSearchResult && <p className="metadata">Author: {search.author ?? "Unknown author"}{search.year ? <><br />First published: {search.year}</> : null}</p>}
       <p className="lead">{book.description}</p>
-      <p className="metadata">Original author: {book.originalAuthor}<br />Translator: {book.translator}</p>
+      {!isSearchResult && <p className="metadata">Original author: {book.originalAuthor}<br />Translator: {book.translator}</p>}
       {book.status === "available" && book.chapters.length > 0 ? (
         <section className="reader-card">
           <h2>Chapters</h2>
