@@ -266,7 +266,7 @@ export default function Home() {
               <small>First published: {book.first_publish_year}</small>
             )}
             <a
-              href={`/books/${book.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`}
+              href={`/books/${book.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}?cover=${encodeURIComponent(book.localCover ?? (book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg` : ""))}&author=${encodeURIComponent(book.author_name?.[0] ?? "Unknown author")}&year=${encodeURIComponent(book.first_publish_year ?? "")}`}
               style={{
                 display: "inline-block",
                 marginTop: "12px",
