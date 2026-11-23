@@ -275,6 +275,49 @@ a.reader-card {
 }
 
 @media (max-width: 640px) {
+  .home-page {
+    padding: 32px 6% !important;
+    overflow-x: hidden;
+  }
+
+  .home-nav {
+    align-items: flex-start !important;
+    margin-bottom: 64px !important;
+  }
+
+  .home-links {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px !important;
+    flex-wrap: wrap;
+  }
+
+  .home-links a,
+  .home-links button {
+    font-size: 14px !important;
+  }
+
+  .home-title {
+    max-width: 100% !important;
+    font-size: clamp(3rem, 15vw, 4rem) !important;
+    line-height: 1.05;
+  }
+
+  .home-lead {
+    max-width: 100% !important;
+    font-size: 18px !important;
+  }
+
+  .home-search {
+    max-width: 100% !important;
+    flex-wrap: wrap;
+  }
+
+  .home-search input {
+    min-width: 0;
+    flex: 1 1 220px;
+  }
+
   .reader-shell {
     padding: 32px 6%;
   }

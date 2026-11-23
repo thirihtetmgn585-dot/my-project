@@ -18,6 +18,7 @@ export default function Home() {
   }, [savedBooks]);
   return (
     <main
+      className="home-page"
       style={{
         minHeight: "100vh",
         background: "#f4efe6",
@@ -27,6 +28,7 @@ export default function Home() {
       }}
     >
       <nav
+        className="home-nav"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -37,7 +39,7 @@ export default function Home() {
         }}
       >
         <strong style={{ fontSize: "22px" }}>Booklish</strong>
-        <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
+        <div className="home-links" style={{ display: "flex", gap: "24px", alignItems: "center" }}>
           <a
             href="/create-book"
             style={{
@@ -103,14 +105,15 @@ export default function Home() {
       </nav>
 
       <p style={{ color: "#8b5e3c", letterSpacing: "3px" }}>BOOKLISH</p>
-      <h1 style={{ fontSize: "64px", maxWidth: "700px" }}>
+      <h1 className="home-title" style={{ fontSize: "64px", maxWidth: "700px" }}>
         Your books, brought to life.
       </h1>
-      <p style={{ fontSize: "20px", maxWidth: "560px", lineHeight: 1.6 }}>
+      <p className="home-lead" style={{ fontSize: "20px", maxWidth: "560px", lineHeight: 1.6 }}>
         Explore stories, discover ideas, and build a deeper connection with
         every book you read.
       </p>
       <div
+        className="home-search"
         style={{
           display: "flex",
           gap: "12px",
