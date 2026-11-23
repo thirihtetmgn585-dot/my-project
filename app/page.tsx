@@ -219,6 +219,16 @@ export default function Home() {
             `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
           }
                 alt={book.title}
+                onError={(event) => {
+                  const fallback = book.title?.toLowerCase().includes("frankenstein")
+                    ? "https://covers.openlibrary.org/b/isbn/0486282112-M.jpg"
+                    : "";
+                  if (fallback && event.currentTarget.src !== fallback) {
+                    event.currentTarget.src = fallback;
+                  } else {
+                    event.currentTarget.style.display = "none";
+                  }
+                }}
                 style={{
                   width: "100%",
                   height: "220px",
