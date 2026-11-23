@@ -3,6 +3,8 @@ import { connection } from "next/server";
 import Link from "next/link";
 import { mongoClient } from "../../lib/mongodb";
 
+export const instant = false;
+
 export default async function LibraryPage() {
   await connection();
   const { userId } = await auth();

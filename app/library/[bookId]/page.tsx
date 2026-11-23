@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ObjectId } from "mongodb";
 import { mongoClient } from "../../../lib/mongodb";
 
+export const instant = false;
+
 type PageProps = { params: Promise<{ bookId: string }> };
 
 export default async function SavedBookPage({ params }: PageProps) {
