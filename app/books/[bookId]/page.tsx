@@ -16,6 +16,7 @@ export default async function BookDetailsPage({ params, searchParams }: { params
       <Link href="/books" className="back-link">← All novels</Link>
       <p className="eyebrow">BOOK DETAILS</p>
       <h1>{book.title}</h1>
+      {book.status === "unavailable" && book.cover && <img className="search-result-cover" src={book.cover} alt={`${book.title} cover`} />}
       {isSearchResult && search.cover && <img className="search-result-cover" src={search.cover} alt={`${book.title} cover`} />}
       {isSearchResult && <p className="metadata">Author: {search.author ?? "Unknown author"}{search.year ? <><br />First published: {search.year}</> : null}</p>}
       <p className="lead">{book.description}</p>
@@ -30,7 +31,8 @@ export default async function BookDetailsPage({ params, searchParams }: { params
       ) : (
         <section className="notice-card search-info-card">
           <h2>Book information</h2>
-          <p>This title was found through book search. Add authorized or public-domain chapters to make it available for reading in Booklish.</p>
+          <p>This title was found through book search. You can read the public-domain edition from the source below.</p>
+          {book.publicDomainUrl && <a className="reader-button" href={book.publicDomainUrl} target="_blank" rel="noreferrer">Read public-domain edition →</a>}
         </section>
       )}
     </main>
