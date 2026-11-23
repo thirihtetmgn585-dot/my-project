@@ -84,6 +84,10 @@ export default function CreateBookPage() {
             Description
             <textarea name="description" required rows={6} placeholder="What is this book about?" />
           </label>
+          <label>
+            Reading text
+            <textarea name="readingText" required rows={14} placeholder="Paste the authorized or public-domain text you want to read..." />
+          </label>
           <button type="submit" className="reader-button" disabled={isSaving}>
             {isSaving ? "Saving..." : "Create book"}
           </button>

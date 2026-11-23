@@ -166,6 +166,10 @@ a.reader-card {
   line-height: 1.9;
 }
 
+.reading-part p {
+  white-space: pre-wrap;
+}
+
 .chapter-navigation {
   display: flex;
   justify-content: space-between;

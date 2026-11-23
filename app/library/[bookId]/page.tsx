@@ -31,8 +31,12 @@ export default async function SavedBookPage({ params }: PageProps) {
       <section className="reader-card">
         {book.coverUrl && <img className="library-cover" src={String(book.coverUrl)} alt={`${book.title} cover`} />}
         <p>{String(book.description)}</p>
-        <p className="availability unavailable">Reading chapters are not available for this saved book yet.</p>
-        <p>Only authorized full text can be added to the internal reader.</p>
+        <h2>Reading text</h2>
+        <div className="reading-part">
+          {String(book.readingText || "").split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
       </section>
     </main>
   );

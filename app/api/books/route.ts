@@ -10,10 +10,10 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, author, genre, coverUrl, description } = body;
+    const { title, author, genre, coverUrl, description, readingText } = body;
 
-    if (!title || !author || !description) {
-      return NextResponse.json({ error: "Title, author, and description are required." }, { status: 400 });
+    if (!title || !author || !description || !readingText) {
+      return NextResponse.json({ error: "Title, author, description, and reading text are required." }, { status: 400 });
     }
 
     const database = mongoClient.db("booklish");
@@ -24,6 +24,7 @@ export async function POST(request: Request) {
       genre: genre || "Uncategorized",
       coverUrl: coverUrl || "",
       description,
+      readingText,
       createdAt: new Date(),
     });
 
