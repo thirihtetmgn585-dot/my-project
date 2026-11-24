@@ -25,7 +25,7 @@ export default async function BookDetailsPage({ params, searchParams }: { params
         <section className="reader-card">
           <h2>Chapters</h2>
           {book.chapters.map((chapter) => (
-            <Link className="chapter-link" href={`/books/${book.id}/read?chapter=${chapter.id}`} key={chapter.id}>
+            <Link className="chapter-link" href={`/books/${book.id}/chapters/${chapter.id}`} key={chapter.id}>
               {chapter.title}
             </Link>
           ))}

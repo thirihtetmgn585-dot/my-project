@@ -21,7 +21,7 @@ export default async function FrankensteinReader({ params, searchParams }: { par
       <nav className="reader-card" aria-label="Chapters">
         <h2>Chapters</h2>
         <div className="chapter-list">
-          {chapters.map(([id, title]) => <Link className="chapter-link" href={`/books/${bookId}/read?chapter=${id}`} key={id}>{title}</Link>)}
+          {chapters.map(([id, title]) => <Link className="chapter-link" href={`/books/${bookId}/chapters/${id}`} key={id}>{title}</Link>)}
         </div>
       </nav>
       <section className="notice-card search-info-card">

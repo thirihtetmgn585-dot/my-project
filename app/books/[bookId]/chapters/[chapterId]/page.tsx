@@ -41,6 +41,15 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
           {part.text.split("\n\n").map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </section>
       ))}
+      {book.id === "frankenstein-or-the-modern-prometheus" && chapter.parts.length === 0 && (
+        <section className="reading-part">
+          <iframe
+            title={chapter.title}
+            src={`https://dcnb.github.io/frankenstein/essay/05-chapter-${chapter.id.replace("chapter-", "")}.html`}
+            className="public-domain-reader"
+          />
+        </section>
+      )}
       <nav className="chapter-navigation" aria-label="Chapter navigation">
         {previousChapter ? (
           <Link href={`/books/${book.id}/chapters/${previousChapter.id}`} className="chapter-link">
