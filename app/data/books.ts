@@ -38,6 +38,35 @@ export type Book = {
   gutenbergTextUrl?: string;
 };
 
+const additionalGenreBooks: Book[] = [
+  ["the-adventures-of-sherlock-holmes", "The Adventures of Sherlock Holmes", "Arthur Conan Doyle", "Mystery", "A public-domain collection of clever cases and impossible clues.", 12, "https://www.gutenberg.org/ebooks/1661"],
+  ["the-moonstone", "The Moonstone", "Wilkie Collins", "Mystery", "A foundational public-domain mystery about a missing diamond.", 23, "https://www.gutenberg.org/ebooks/155"],
+  ["the-woman-in-white", "The Woman in White", "Wilkie Collins", "Mystery", "A suspenseful public-domain mystery of identity, secrets, and inheritance.", 40, "https://www.gutenberg.org/ebooks/583"],
+  ["the-call-of-the-wild", "The Call of the Wild", "Jack London", "Adventure", "A public-domain wilderness adventure about survival and instinct.", 7, "https://www.gutenberg.org/ebooks/215"],
+  ["around-the-world-in-eighty-days", "Around the World in Eighty Days", "Jules Verne", "Adventure", "A public-domain race around the world by steam, rail, and sea.", 37, "https://www.gutenberg.org/ebooks/103"],
+  ["the-three-musketeers", "The Three Musketeers", "Alexandre Dumas", "Adventure", "A swashbuckling public-domain adventure of friendship and daring.", 67, "https://www.gutenberg.org/ebooks/1257"],
+  ["the-picture-of-dorian-gray", "The Picture of Dorian Gray", "Oscar Wilde", "Thriller", "A public-domain psychological thriller about beauty, corruption, and consequence.", 21, "https://www.gutenberg.org/ebooks/174"],
+  ["the-count-of-monte-cristo", "The Count of Monte Cristo", "Alexandre Dumas", "Thriller", "A public-domain revenge thriller of betrayal, imprisonment, and transformation.", 117, "https://www.gutenberg.org/ebooks/1184"],
+  ["the-island-of-doctor-moreau", "The Island of Doctor Moreau", "H. G. Wells", "Thriller", "A public-domain science thriller set on a terrifying isolated island.", 22, "https://www.gutenberg.org/ebooks/159"],
+  ["the-importance-of-being-earnest", "The Importance of Being Earnest", "Oscar Wilde", "Comedy", "A witty public-domain comedy of manners, mistaken identities, and romance.", 3, "https://www.gutenberg.org/ebooks/844"],
+  ["three-men-in-a-boat", "Three Men in a Boat", "Jerome K. Jerome", "Comedy", "A beloved public-domain comic travel adventure along the Thames.", 19, "https://www.gutenberg.org/ebooks/308"],
+  ["a-connecticut-yankee-in-king-arthurs-court", "A Connecticut Yankee in King Arthur's Court", "Mark Twain", "Comedy", "A public-domain comic time-travel adventure through Arthurian legend.", 44, "https://www.gutenberg.org/ebooks/86"],
+  ["the-prince", "The Prince", "Niccolò Machiavelli", "History", "A public-domain historical and political classic from Renaissance Italy.", 26, "https://www.gutenberg.org/ebooks/1232"],
+  ["the-histories", "The Histories", "Herodotus", "History", "A foundational public-domain account of the ancient Mediterranean world.", 9, "https://www.gutenberg.org/ebooks/2707"],
+  ["the-art-of-war", "The Art of War", "Sun Tzu", "History", "A concise public-domain classic on strategy, leadership, and conflict.", 13, "https://www.gutenberg.org/ebooks/132"],
+].map(([id, title, author, genre, description, chapterCount, publicDomainUrl]) => ({
+  id: id as string,
+  title: title as string,
+  originalAuthor: author as string,
+  translator: "Public-domain English edition",
+  genre: genre as string,
+  description: description as string,
+  cover: `/genre-${String(genre).toLowerCase().replace(/\s+/g, "-")}-cover.svg`,
+  status: "available" as const,
+  chapters: makeChapters(Number(chapterCount), `Begin reading ${String(title)} in Booklish. This public-domain edition is available through the linked source.`),
+  publicDomainUrl: publicDomainUrl as string,
+}));
+
 export const books: Book[] = [
   {
     id: "alice-s-adventures-in-wonderland",
@@ -94,7 +123,7 @@ export const books: Book[] = [
     title: "The Time Machine",
     originalAuthor: "H. G. Wells",
     translator: "Public-domain English original",
-    genre: "Fantasy",
+    genre: "Science Fiction",
     description:
       "A public-domain science-fiction classic. All 12 chapters are stored locally in Booklish for internal reading.",
     cover: "/time-machine-cover.jpg",
@@ -178,6 +207,7 @@ export const books: Book[] = [
     publicDomainUrl: "https://www.gutenberg.org/ebooks/120",
     gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Treasure-Island_120/master/120.txt",
   },
+  ...additionalGenreBooks,
 ];
 
 export function getBook(bookId: string) {
