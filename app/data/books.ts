@@ -4,6 +4,11 @@ import secretGardenChapters from "./secret-garden-chapters.json";
 import timeMachineChapters from "./time-machine-chapters.json";
 import prideAndPrejudiceChapters from "./pride-and-prejudice-chapters.json";
 
+const frankensteinChapters = [
+  ...Array.from({ length: 4 }, (_, index) => ({ id: `letter-${index + 1}`, title: `Letter ${index + 1}`, parts: [] })),
+  ...Array.from({ length: 24 }, (_, index) => ({ id: `chapter-${index + 1}`, title: `Chapter ${index + 1}`, parts: [] })),
+];
+
 export type Chapter = {
   id: string;
   title: string;
@@ -47,6 +52,19 @@ export const books: Book[] = [
     cover: "/oz-cover.jpg",
     status: "available",
     chapters: ozChapters,
+  },
+  {
+    id: "frankenstein-or-the-modern-prometheus",
+    title: "Frankenstein; or, The Modern Prometheus",
+    originalAuthor: "Mary Shelley",
+    translator: "Public-domain English original",
+    genre: "Horror",
+    description:
+      "A public-domain Gothic classic. Letters and all 24 chapters are available in the Booklish reader.",
+    cover: "https://covers.openlibrary.org/b/isbn/0486282112-M.jpg",
+    status: "available",
+    chapters: frankensteinChapters,
+    publicDomainUrl: "https://www.gutenberg.org/ebooks/84",
   },
   {
     id: "the-secret-garden",
