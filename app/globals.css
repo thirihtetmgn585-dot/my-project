@@ -41,6 +41,21 @@ body {
   font-size: 1.15rem;
 }
 
+.chapter-list {
+  display: grid;
+  gap: 0.55rem;
+  max-height: 18rem;
+  overflow-y: auto;
+}
+
+.public-domain-reader {
+  width: 100%;
+  min-height: 70rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: white;
+}
+
 .chapter-link:first-of-type {
   margin-top: 18px;
 }

@@ -31,7 +31,12 @@ export default async function BookDetailsPage({ params, searchParams }: { params
       ) : (
         <section className="notice-card search-info-card">
           <h2>Book information</h2>
-          <p>This title was found through book search. You can read the public-domain edition from the source below.</p>
+          {book.id === "frankenstein-or-the-modern-prometheus" || book.id === "frankenstein" ? (
+            <>
+              <p>This public-domain edition is available in the Booklish reader.</p>
+              <Link className="reader-button" href={`/books/${book.id}/read`}>Open reader →</Link>
+            </>
+          ) : <p>This title was found through book search. You can read the public-domain edition from the source below.</p>}
           {book.publicDomainUrl && <a className="reader-button" href={book.publicDomainUrl} target="_blank" rel="noreferrer">Read public-domain edition →</a>}
         </section>
       )}
