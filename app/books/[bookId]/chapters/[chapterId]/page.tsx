@@ -18,11 +18,12 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
     try {
       const response = await fetch(book.gutenbergTextUrl, { next: { revalidate: 86400 } });
       const rawText = await response.text();
-      const chapterBlocks = rawText
+      const allBlocks = rawText
         .replace(/\r/g, "")
-        .split(/\n(?=(?:CHAPTER\s+(?:[A-Z0-9IVXLCDM]+)|\s*\d{1,2}\s*\n\s*[A-Z]|\s*\d{1,2}\.\s+[A-Z]))/i)
-        .filter((block) => block.trim().length > 500)
-        .filter((block) => !/CONTENTS/i.test(block.slice(0, 2000)));
+        .split(/\n(?=(?:CHAPTER\s+(?:[A-Z0-9IVXLCDM]+)|\s*[IVXLCDM]{1,4}\.\s+[A-Z]|\s*\d{1,2}\s*\n\s*[A-Z]|\s*\d{1,2}\.\s+[A-Z]))/i)
+      const firstChapterIndex = allBlocks.findIndex((block) => /^\s*(?:CHAPTER\s+|I\.\s+|1(?:\.\s+|\s*$))/i.test(block));
+      const chapterBlocks = (firstChapterIndex >= 0 ? allBlocks.slice(firstChapterIndex) : allBlocks)
+        .filter((block) => block.trim().length > 500);
       const selectedBlock = chapterBlocks[chapterIndex];
       if (selectedBlock) {
         publicDomainParagraphs = selectedBlock
