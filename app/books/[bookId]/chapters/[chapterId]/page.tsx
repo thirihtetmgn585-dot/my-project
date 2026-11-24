@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getBook } from "../../../../data/books";
 import ReaderControls from "../../../ReaderControls";
 import BookVoice from "../../../../BookVoice";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const instant = false;
 
@@ -16,8 +18,9 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
   let publicDomainParagraphs: string[] = [];
   if (book.gutenbergTextUrl) {
     try {
-      const response = await fetch(book.gutenbergTextUrl, { next: { revalidate: 86400 } });
-      const rawText = await response.text();
+      const rawText = book.localTextFile
+        ? await readFile(join(process.cwd(), "public", book.localTextFile.replace(/^\//, "")), "utf8")
+        : await (await fetch(book.gutenbergTextUrl, { next: { revalidate: 86400 } })).text();
       const allBlocks = rawText
         .replace(/\r/g, "")
         .split(/\n(?=(?:CHAPTER\s+(?:[A-Z0-9IVXLCDM]+)|\s*[IVXLCDM]{1,4}\.\s+[A-Z]|\s*\d{1,2}\s*\n\s*[A-Z]|\s*\d{1,2}\.\s+[A-Z]))/i)

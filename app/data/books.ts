@@ -36,6 +36,24 @@ export type Book = {
   chapters: Chapter[];
   publicDomainUrl?: string;
   gutenbergTextUrl?: string;
+  localTextFile?: string;
+};
+
+const localTextFiles: Record<string, string> = {
+  "the-adventures-of-sherlock-holmes": "sherlock-holmes.txt",
+  "the-moonstone": "moonstone.txt",
+  "the-woman-in-white": "woman-in-white.txt",
+  "the-call-of-the-wild": "call-of-the-wild.txt",
+  "around-the-world-in-eighty-days": "around-the-world.txt",
+  "the-three-musketeers": "three-musketeers.txt",
+  "the-picture-of-dorian-gray": "dorian-gray.txt",
+  "the-count-of-monte-cristo": "count-monte-cristo.txt",
+  "the-island-of-doctor-moreau": "doctor-moreau.txt",
+  "three-men-in-a-boat": "three-men-in-a-boat.txt",
+  "a-connecticut-yankee-in-king-arthurs-court": "connecticut-yankee.txt",
+  "the-prince": "prince.txt",
+  "the-art-of-war": "art-of-war.txt",
+  "the-importance-of-being-earnest": "importance-earnest.txt",
 };
 
 const additionalGenreBooks: Book[] = [
@@ -66,6 +84,7 @@ const additionalGenreBooks: Book[] = [
   chapters: makeChapters(Number(chapterCount), `Begin reading ${String(title)} in Booklish. This public-domain edition is available through the linked source.`),
   publicDomainUrl: publicDomainUrl as string,
   gutenbergTextUrl: gutenbergTextUrl as string,
+  localTextFile: localTextFiles[id as string] ? `/book-texts/${localTextFiles[id as string]}` : undefined,
 }));
 
 export const books: Book[] = [
