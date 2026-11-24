@@ -31,7 +31,10 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
     const sourceUrl = `https://dcnb.github.io/frankenstein/essay/05-chapter-${chapter.id.replace("chapter-", "")}.html`;
     try {
       const response = await fetch(sourceUrl, { next: { revalidate: 86400 } });
-      const html = await response.text();
+      const rawHtml = await response.text();
+      const withoutScripts = rawHtml.replace(/<script[\s\S]*?<\/script>/gi, "");
+      const chapterStart = withoutScripts.search(/<h[1-6][^>]*>\s*Chapter\s+\d+/i);
+      const html = chapterStart >= 0 ? withoutScripts.slice(chapterStart) : withoutScripts;
       publicDomainParagraphs = [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
         .map((match) => cleanHtml(match[1]))
         .filter((paragraph) => paragraph.length > 40);
