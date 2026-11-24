@@ -96,6 +96,13 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
           {publicDomainParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </section>
       )}
+      {publicDomainParagraphs.length === 0 && chapter.parts.length === 0 && (
+        <section className="notice-card search-info-card">
+          <h2>Chapter text unavailable</h2>
+          <p>The public-domain source is temporarily unavailable. Try opening the source edition, then return here to continue using Booklish navigation.</p>
+          {book.publicDomainUrl && <a className="reader-button" href={book.publicDomainUrl} target="_blank" rel="noreferrer">Open public-domain edition →</a>}
+        </section>
+      )}
       <nav className="chapter-navigation" aria-label="Chapter navigation">
         {previousChapter ? (
           <Link href={`/books/${book.id}/chapters/${previousChapter.id}`} className="chapter-link">
