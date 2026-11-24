@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+export const instant = false;
+
 const chapters = [
   ["letter-1", "Letter 1"], ["letter-2", "Letter 2"], ["letter-3", "Letter 3"], ["letter-4", "Letter 4"],
   ...Array.from({ length: 24 }, (_, index) => [`chapter-${index + 1}`, `Chapter ${index + 1}`]),
