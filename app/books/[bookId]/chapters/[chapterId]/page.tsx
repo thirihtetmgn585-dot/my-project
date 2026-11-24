@@ -27,6 +27,26 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
   if (!book || !chapter) notFound();
 
   let publicDomainParagraphs: string[] = [];
+  if (book.gutenbergTextUrl) {
+    try {
+      const response = await fetch(book.gutenbergTextUrl, { next: { revalidate: 86400 } });
+      const rawText = await response.text();
+      const chapterBlocks = rawText
+        .replace(/\r/g, "")
+        .split(/\n(?=CHAPTER\s+(?:[A-Z0-9IVXLCDM]+))/i)
+        .filter((block) => block.trim().length > 500);
+      const selectedBlock = chapterBlocks[chapterIndex];
+      if (selectedBlock) {
+        publicDomainParagraphs = selectedBlock
+          .split(/\n\s*\n/)
+          .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+          .filter((paragraph) => paragraph.length > 40);
+      }
+    } catch {
+      publicDomainParagraphs = [];
+    }
+  }
+
   if (book.id === "frankenstein-or-the-modern-prometheus" && chapter.id.startsWith("chapter-")) {
     const sourceUrl = `https://dcnb.github.io/frankenstein/essay/05-chapter-${chapter.id.replace("chapter-", "")}.html`;
     try {
@@ -52,7 +72,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
       <Link href={`/books/${book.id}`} className="back-link">← Back to chapters</Link>
       <p className="eyebrow">{book.title}</p>
       <h1>{chapter.title}</h1>
-      <BookVoice title={book.title} text={chapter.parts.map((part) => part.text).join("\n\n")} />
+      <BookVoice title={book.title} text={publicDomainParagraphs.length > 0 ? publicDomainParagraphs.join("\n\n") : chapter.parts.map((part) => part.text).join("\n\n")} />
       <nav className="chapter-navigation" aria-label="Chapter navigation">
         {previousChapter ? (
           <Link href={`/books/${book.id}/chapters/${previousChapter.id}`} className="chapter-link">

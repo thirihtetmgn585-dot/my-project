@@ -4,13 +4,11 @@ import secretGardenChapters from "./secret-garden-chapters.json";
 import timeMachineChapters from "./time-machine-chapters.json";
 import prideAndPrejudiceChapters from "./pride-and-prejudice-chapters.json";
 
-const additionalPublicDomainChapters = {
-  dracula: [{ id: "chapter-1", title: "Chapter I", parts: [{ id: "chapter-1-part-1", title: "Jonathan Harker's Journal", text: "3 May, Bistritz.—Left Munich at 8:35 P.M. on 1st May, arriving at Vienna early next morning; should have arrived at 6:46, but train was an hour late. Buda-Pesth seems a wonderful place, from the glimpse which I got of it from the train and the little I could walk through the streets. I did not dare to stop at the hotel at night, as the instructions were to go on as near as I could to the pass where the coach was to meet me." }] }],
-  littleWomen: [{ id: "chapter-1", title: "Chapter I — Playing Pilgrims", parts: [{ id: "chapter-1-part-1", title: "The March family", text: "Christmas won't be Christmas without any presents, grumbled Jo, lying on the rug. It's so dreadful to be poor! sighed Meg, looking down at her old dress. I don't think it's fair for some girls to have lots of pretty things, and other girls nothing at all, added little Amy, with an injured sniff. We've got Father and Mother, and each other, said Beth contentedly from her corner. The four young faces on which the firelight shone brightened at the cheerful words, but darkened again as Jo said sadly, We haven't got Father, and shall not have him for a long time." }] }],
-  janeEyre: [{ id: "chapter-1", title: "Chapter I", parts: [{ id: "chapter-1-part-1", title: "Gateshead", text: "There was no possibility of taking a walk that day. We had been wandering, indeed, in the leafless shrubbery an hour in the morning; but since dinner the cold winter wind had brought with it clouds so sombre, and a rain so penetrating, that further out-door exercise was now out of the question. I was glad of it: I never liked long walks, especially in winter. I used to dread returning to the nursery and being sent to the company of the schoolroom." }] }],
-  wutheringHeights: [{ id: "chapter-1", title: "Chapter I", parts: [{ id: "chapter-1-part-1", title: "The new tenant", text: "1801.—I have just returned from a visit to my landlord—the solitary neighbour that I shall be troubled with. This is certainly a beautiful country! In all England, I do not believe that I could have fixed on a situation so completely removed from the stir of society. A perfect misanthropist's heaven: and Mr. Heathcliff and I are such a suitable pair to divide the desolation between us." }] }],
-  treasureIsland: [{ id: "chapter-1", title: "Chapter I — The Old Sea-dog at the Admiral Benbow", parts: [{ id: "chapter-1-part-1", title: "The sea-chest", text: "The squire's old black dog lay asleep in the corner of the common room, and the fire glowed red upon the brass fittings of the sea-chest. A tall, strong, heavy, nut-brown man, with a tarry pigtail hanging over the shoulder of his soiled blue coat, came into the inn. He had a three-cornered hat, a knobbed stick, and a scar across one cheek. He looked round the room in silence, and then began to whistle the tune of an old sea-song." }] }],
-};
+const makeChapters = (count: number, firstText: string): Chapter[] => Array.from({ length: count }, (_, index) => ({
+  id: `chapter-${index + 1}`,
+  title: `Chapter ${index + 1}`,
+  parts: index === 0 ? [{ id: "chapter-1-part-1", title: "Opening", text: firstText }] : [],
+}));
 
 const frankensteinChapters = [
   ...Array.from({ length: 24 }, (_, index) => ({ id: `chapter-${index + 1}`, title: `Chapter ${index + 1}`, parts: [] })),
@@ -33,6 +31,7 @@ export type Book = {
   status: "available" | "unavailable";
   chapters: Chapter[];
   publicDomainUrl?: string;
+  gutenbergTextUrl?: string;
 };
 
 export const books: Book[] = [
@@ -68,7 +67,7 @@ export const books: Book[] = [
     genre: "Horror",
     description:
       "A public-domain Gothic classic. All 24 chapters are available in the Booklish reader.",
-    cover: "https://covers.openlibrary.org/b/isbn/0486282112-M.jpg",
+    cover: "/frankenstein-cover.svg",
     status: "available",
     chapters: frankensteinChapters,
     publicDomainUrl: "https://www.gutenberg.org/ebooks/84",
@@ -116,10 +115,11 @@ export const books: Book[] = [
     translator: "Public-domain English original",
     genre: "Horror",
     description: "A public-domain Gothic horror classic, presented in the Booklish reader.",
-    cover: "https://covers.openlibrary.org/b/isbn/9780486411095-M.jpg",
     status: "available",
-    chapters: additionalPublicDomainChapters.dracula,
+    chapters: makeChapters(27, "3 May, Bistritz.—Left Munich at 8:35 P.M. on 1st May, arriving at Vienna early next morning; should have arrived at 6:46, but train was an hour late. Buda-Pesth seems a wonderful place, from the glimpse which I got of it from the train and the little I could walk through the streets."),
+    cover: "/dracula-cover.svg",
     publicDomainUrl: "https://www.gutenberg.org/ebooks/345",
+    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/345/pg345.txt",
   },
   {
     id: "little-women",
@@ -128,10 +128,11 @@ export const books: Book[] = [
     translator: "Public-domain English original",
     genre: "Romance",
     description: "A warm public-domain coming-of-age classic about the March sisters.",
-    cover: "https://covers.openlibrary.org/b/isbn/9780486290737-M.jpg",
+    cover: "/little-women-cover.svg",
     status: "available",
-    chapters: additionalPublicDomainChapters.littleWomen,
+    chapters: makeChapters(47, "Christmas won't be Christmas without any presents, grumbled Jo, lying on the rug. It's so dreadful to be poor! sighed Meg, looking down at her old dress."),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/514",
+    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/514/pg514.txt",
   },
   {
     id: "jane-eyre",
@@ -140,10 +141,11 @@ export const books: Book[] = [
     translator: "Public-domain English original",
     genre: "Romance",
     description: "A public-domain romantic and Gothic classic following Jane Eyre's journey.",
-    cover: "https://covers.openlibrary.org/b/isbn/9780486410265-M.jpg",
+    cover: "/jane-eyre-cover.svg",
     status: "available",
-    chapters: additionalPublicDomainChapters.janeEyre,
+    chapters: makeChapters(38, "There was no possibility of taking a walk that day. We had been wandering, indeed, in the leafless shrubbery an hour in the morning; but since dinner the cold winter wind had brought with it clouds so sombre, and a rain so penetrating, that further out-door exercise was now out of the question."),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/1260",
+    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/1260/pg1260.txt",
   },
   {
     id: "wuthering-heights",
@@ -152,10 +154,11 @@ export const books: Book[] = [
     translator: "Public-domain English original",
     genre: "Romance",
     description: "A public-domain English classic of passion, memory, and the Yorkshire moors.",
-    cover: "https://covers.openlibrary.org/b/isbn/9780486292564-M.jpg",
+    cover: "/wuthering-heights-cover.svg",
     status: "available",
-    chapters: additionalPublicDomainChapters.wutheringHeights,
+    chapters: makeChapters(34, "1801.—I have just returned from a visit to my landlord—the solitary neighbour that I shall be troubled with. This is certainly a beautiful country!"),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/768",
+    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/768/pg768.txt",
   },
   {
     id: "treasure-island",
@@ -164,10 +167,11 @@ export const books: Book[] = [
     translator: "Public-domain English original",
     genre: "Fantasy",
     description: "A public-domain adventure classic of pirates, maps, and buried treasure.",
-    cover: "https://covers.openlibrary.org/b/isbn/9780486275593-M.jpg",
+    cover: "/treasure-island-cover.svg",
     status: "available",
-    chapters: additionalPublicDomainChapters.treasureIsland,
+    chapters: makeChapters(34, "The squire's old black dog lay asleep in the corner of the common room, and the fire glowed red upon the brass fittings of the sea-chest. A tall, strong, heavy, nut-brown man came into the inn."),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/120",
+    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/120/pg120.txt",
   },
 ];
 
