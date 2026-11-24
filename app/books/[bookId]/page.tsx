@@ -23,9 +23,12 @@ export default async function BookDetailsPage({ params, searchParams }: { params
       {!isSearchResult && <p className="metadata">Original author: {book.originalAuthor}<br />Translator: {book.translator}</p>}
       {book.id === "frankenstein-or-the-modern-prometheus" ? (
         <section className="reader-card">
-          <h2>28 chapters available</h2>
-          <p className="lead">Read the letters and chapters in the Frankenstein reader.</p>
-          <Link className="reader-button" href={`/books/${book.id}/read`}>Open reader →</Link>
+          <h2>Chapters</h2>
+          {book.chapters.map((chapter) => (
+            <Link className="chapter-link" href={`/books/${book.id}/read?chapter=${chapter.id}`} key={chapter.id}>
+              {chapter.title}
+            </Link>
+          ))}
         </section>
       ) : book.status === "available" && book.chapters.length > 0 ? (
         <section className="reader-card">

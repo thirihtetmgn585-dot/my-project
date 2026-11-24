@@ -44,8 +44,6 @@ body {
 .chapter-list {
   display: grid;
   gap: 0.55rem;
-  max-height: 18rem;
-  overflow-y: auto;
 }
 
 .public-domain-reader {
