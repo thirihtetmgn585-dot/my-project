@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { books } from "../../data/books";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -8,44 +9,20 @@ export async function GET(request: Request) {
     return NextResponse.json({ docs: [] });
   }
 
-  try {
-    const response = await fetch(
-      `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=8`,
-    );
+  const normalizedQuery = query.toLowerCase().trim();
+  const docs = books
+    .filter((book) =>
+      [book.title, book.originalAuthor, book.genre].some((value) =>
+        value.toLowerCase().includes(normalizedQuery),
+      ),
+    )
+    .map((book) => ({
+      key: `/works/${book.id}`,
+      title: book.title,
+      author_name: [book.originalAuthor],
+      localCover: book.cover,
+      first_publish_year: book.id === "frankenstein-or-the-modern-prometheus" ? 1818 : undefined,
+    }));
 
-    if (!response.ok) {
-      throw new Error("Open Library request failed");
-    }
-
-    const data = await response.json();
-    return NextResponse.json(data);
-  } catch {
-    const fallbackBooks = [
-      {
-        key: "/works/OL262758W",
-        title: "The Alchemist",
-        author_name: ["Paulo Coelho"],
-        localCover: "/alchemist.jpg",
-      },
-      {
-        key: "/works/OL17930368W",
-        title: "Atomic Habits",
-        author_name: ["James Clear"],
-        localCover: "/atomic-habits.jpg",
-      },
-      {
-        key: "/works/OL17358107W",
-        title: "Deep Work",
-        author_name: ["Cal Newport"],
-        localCover: "/deep-work.jpg",
-      },
-    ];
-
-    const normalizedQuery = query.toLowerCase();
-    const docs = fallbackBooks.filter((book) =>
-      book.title.toLowerCase().includes(normalizedQuery),
-    );
-
-    return NextResponse.json({ numFound: docs.length, docs });
-  }
+  return NextResponse.json({ numFound: docs.length, docs });
 }
