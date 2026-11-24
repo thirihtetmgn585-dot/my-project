@@ -20,8 +20,9 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
       const rawText = await response.text();
       const chapterBlocks = rawText
         .replace(/\r/g, "")
-        .split(/\n(?=CHAPTER\s+(?:[A-Z0-9IVXLCDM]+))/i)
-        .filter((block) => block.trim().length > 500);
+        .split(/\n(?=(?:CHAPTER\s+(?:[A-Z0-9IVXLCDM]+)|\s*\d{1,2}\s*\n\s*[A-Z]|\s*\d{1,2}\.\s+[A-Z]))/i)
+        .filter((block) => block.trim().length > 500)
+        .filter((block) => !/CONTENTS/i.test(block.slice(0, 2000)));
       const selectedBlock = chapterBlocks[chapterIndex];
       if (selectedBlock) {
         publicDomainParagraphs = selectedBlock
