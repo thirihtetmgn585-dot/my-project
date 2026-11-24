@@ -6,12 +6,39 @@ import BookVoice from "../../../../BookVoice";
 
 export const instant = false;
 
+function cleanHtml(value: string) {
+  return value
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&rsquo;/g, "’")
+    .replace(/&ldquo;/g, "“")
+    .replace(/&rdquo;/g, "”")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+}
+
 export default async function ChapterPage({ params }: { params: Promise<{ bookId: string; chapterId: string }> }) {
   const { bookId, chapterId } = await params;
   const book = getBook(bookId);
   const chapterIndex = book?.chapters.findIndex((item) => item.id === chapterId) ?? -1;
   const chapter = chapterIndex >= 0 ? book?.chapters[chapterIndex] : undefined;
   if (!book || !chapter) notFound();
+
+  let publicDomainParagraphs: string[] = [];
+  if (book.id === "frankenstein-or-the-modern-prometheus" && chapter.id.startsWith("chapter-")) {
+    const sourceUrl = `https://dcnb.github.io/frankenstein/essay/05-chapter-${chapter.id.replace("chapter-", "")}.html`;
+    try {
+      const response = await fetch(sourceUrl, { next: { revalidate: 86400 } });
+      const html = await response.text();
+      publicDomainParagraphs = [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+        .map((match) => cleanHtml(match[1]))
+        .filter((paragraph) => paragraph.length > 40);
+    } catch {
+      publicDomainParagraphs = [];
+    }
+  }
 
   const previousChapter = chapterIndex > 0 ? book.chapters[chapterIndex - 1] : undefined;
   const nextChapter = chapterIndex < book.chapters.length - 1 ? book.chapters[chapterIndex + 1] : undefined;
@@ -41,13 +68,9 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
           {part.text.split("\n\n").map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </section>
       ))}
-      {book.id === "frankenstein-or-the-modern-prometheus" && chapter.parts.length === 0 && (
+      {publicDomainParagraphs.length > 0 && (
         <section className="reading-part">
-          <iframe
-            title={chapter.title}
-            src={`https://dcnb.github.io/frankenstein/essay/05-chapter-${chapter.id.replace("chapter-", "")}.html`}
-            className="public-domain-reader"
-          />
+          {publicDomainParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </section>
       )}
       <nav className="chapter-navigation" aria-label="Chapter navigation">
