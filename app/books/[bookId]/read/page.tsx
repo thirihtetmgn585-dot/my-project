@@ -3,19 +3,14 @@ import Link from "next/link";
 export const instant = false;
 
 const chapters = [
-  ["letter-1", "Letter 1"], ["letter-2", "Letter 2"], ["letter-3", "Letter 3"], ["letter-4", "Letter 4"],
   ...Array.from({ length: 24 }, (_, index) => [`chapter-${index + 1}`, `Chapter ${index + 1}`]),
 ];
-
-const sourcePages: Record<string, string> = {
-  "letter-1": "01-letter-1", "letter-2": "02-letter-2", "letter-3": "03-letter-3", "letter-4": "04-letter-4",
-};
 
 export default async function FrankensteinReader({ params, searchParams }: { params: Promise<{ bookId: string }>; searchParams: Promise<{ chapter?: string }> }) {
   const { bookId } = await params;
   const { chapter = "letter-1" } = await searchParams;
   const selected = chapters.find(([id]) => id === chapter) ?? chapters[0];
-  const source = sourcePages[chapter] ?? `05-chapter-${chapter.replace("chapter-", "")}`;
+  const source = `05-chapter-${chapter.replace("chapter-", "")}`;
   const sourceUrl = `https://dcnb.github.io/frankenstein/essay/${source}.html`;
 
   return (

@@ -5,7 +5,6 @@ import timeMachineChapters from "./time-machine-chapters.json";
 import prideAndPrejudiceChapters from "./pride-and-prejudice-chapters.json";
 
 const frankensteinChapters = [
-  ...Array.from({ length: 4 }, (_, index) => ({ id: `letter-${index + 1}`, title: `Letter ${index + 1}`, parts: [] })),
   ...Array.from({ length: 24 }, (_, index) => ({ id: `chapter-${index + 1}`, title: `Chapter ${index + 1}`, parts: [] })),
 ];
 
@@ -60,7 +59,7 @@ export const books: Book[] = [
     translator: "Public-domain English original",
     genre: "Horror",
     description:
-      "A public-domain Gothic classic. Letters and all 24 chapters are available in the Booklish reader.",
+      "A public-domain Gothic classic. All 24 chapters are available in the Booklish reader.",
     cover: "https://covers.openlibrary.org/b/isbn/0486282112-M.jpg",
     status: "available",
     chapters: frankensteinChapters,
