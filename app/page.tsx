@@ -465,10 +465,6 @@ export default function Home() {
         </p>
       </section>
 
-      <section id="contact" style={{ marginTop: "60px" }}>
-        <h2 style={{ fontSize: "36px" }}>Stay connected</h2>
-        <p>Email us at hello@booklish.com</p>
-      </section>
       <section
         style={{
           marginTop: "100px",
