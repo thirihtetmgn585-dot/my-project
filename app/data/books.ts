@@ -75,7 +75,7 @@ export const books: Book[] = [
     status: "available",
     chapters: frankensteinChapters,
     publicDomainUrl: "https://www.gutenberg.org/ebooks/84",
-    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/84/pg84.txt",
+    gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Frankenstein_84/master/84.txt",
   },
   {
     id: "the-secret-garden",
@@ -124,7 +124,7 @@ export const books: Book[] = [
     chapters: makeChapters(27, "3 May, Bistritz.—Left Munich at 8:35 P.M. on 1st May, arriving at Vienna early next morning; should have arrived at 6:46, but train was an hour late. Buda-Pesth seems a wonderful place, from the glimpse which I got of it from the train and the little I could walk through the streets."),
     cover: "/dracula-cover.svg",
     publicDomainUrl: "https://www.gutenberg.org/ebooks/345",
-    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/345/pg345.txt",
+    gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Dracula_345/master/345.txt",
   },
   {
     id: "little-women",
@@ -137,7 +137,7 @@ export const books: Book[] = [
     status: "available",
     chapters: makeChapters(47, "Christmas won't be Christmas without any presents, grumbled Jo, lying on the rug. It's so dreadful to be poor! sighed Meg, looking down at her old dress."),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/514",
-    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/514/pg514.txt",
+    gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Little-Women_514/master/514.txt",
   },
   {
     id: "jane-eyre",
@@ -150,7 +150,7 @@ export const books: Book[] = [
     status: "available",
     chapters: makeChapters(38, "There was no possibility of taking a walk that day. We had been wandering, indeed, in the leafless shrubbery an hour in the morning; but since dinner the cold winter wind had brought with it clouds so sombre, and a rain so penetrating, that further out-door exercise was now out of the question."),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/1260",
-    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/1260/pg1260.txt",
+    gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Jane-Eyre_1260/master/1260.txt",
   },
   {
     id: "wuthering-heights",
@@ -163,7 +163,7 @@ export const books: Book[] = [
     status: "available",
     chapters: makeChapters(34, "1801.—I have just returned from a visit to my landlord—the solitary neighbour that I shall be troubled with. This is certainly a beautiful country!"),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/768",
-    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/768/pg768.txt",
+    gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Wuthering-Heights_768/master/768.txt",
   },
   {
     id: "treasure-island",
@@ -176,7 +176,7 @@ export const books: Book[] = [
     status: "available",
     chapters: makeChapters(34, "The squire's old black dog lay asleep in the corner of the common room, and the fire glowed red upon the brass fittings of the sea-chest. A tall, strong, heavy, nut-brown man came into the inn."),
     publicDomainUrl: "https://www.gutenberg.org/ebooks/120",
-    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/120/pg120.txt",
+    gutenbergTextUrl: "https://raw.githubusercontent.com/GITenberg/Treasure-Island_120/master/120.txt",
   },
 ];
 
