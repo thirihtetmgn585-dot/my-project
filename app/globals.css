@@ -54,6 +54,21 @@ body {
   background: white;
 }
 
+.contact-card {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 42rem;
+}
+
+.contact-card input,
+.contact-card textarea {
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  background: #fffaf2;
+}
+
 .chapter-link:first-of-type {
   margin-top: 18px;
 }
