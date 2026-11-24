@@ -11,7 +11,11 @@ const makeChapters = (count: number, firstText: string): Chapter[] => Array.from
 }));
 
 const frankensteinChapters = [
-  ...Array.from({ length: 24 }, (_, index) => ({ id: `chapter-${index + 1}`, title: `Chapter ${index + 1}`, parts: [] })),
+  ...Array.from({ length: 24 }, (_, index) => ({
+    id: `chapter-${index + 1}`,
+    title: `Chapter ${index + 1}`,
+    parts: index === 0 ? [{ id: "chapter-1-part-1", title: "Letter I", text: "You will rejoice to hear that no disaster has accompanied the commencement of an enterprise which you have regarded with such evil forebodings. I arrived here yesterday, and my first task is to assure my dear sister of my welfare and increasing confidence in the success of my undertaking." }] : [],
+  })),
 ];
 
 export type Chapter = {
@@ -71,6 +75,7 @@ export const books: Book[] = [
     status: "available",
     chapters: frankensteinChapters,
     publicDomainUrl: "https://www.gutenberg.org/ebooks/84",
+    gutenbergTextUrl: "https://www.gutenberg.org/cache/epub/84/pg84.txt",
   },
   {
     id: "the-secret-garden",
