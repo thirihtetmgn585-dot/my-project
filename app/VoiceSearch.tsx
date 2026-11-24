@@ -16,7 +16,7 @@ export default function VoiceSearch({ onSearch }: { onSearch?: (query: string) =
     vapi.on("call-start", () => { setActive(true); setMessage("Listening…"); });
     vapi.on("call-end", () => { setActive(false); setMessage("Speak to search for a book"); });
     vapi.on("message", (event) => {
-      if (event.type === "transcript" && event.transcript) {
+      if (event.type === "transcript" && event.transcript && (event.role === "user" || !event.role)) {
         setMessage(event.transcript);
         if (event.transcriptType === "final") onSearch?.(event.transcript);
       }
