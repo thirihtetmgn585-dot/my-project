@@ -98,6 +98,7 @@ export function getBook(bookId: string) {
     chapters: [],
     cover: ({
       frankenstein: "https://covers.openlibrary.org/b/isbn/0486282112-M.jpg",
+      "frankenstein-or-the-modern-prometheus": "https://covers.openlibrary.org/b/isbn/0486282112-M.jpg",
       dracula: "https://covers.openlibrary.org/b/isbn/9780486411095-M.jpg",
       "little-women": "https://covers.openlibrary.org/b/isbn/9780486290737-M.jpg",
       "jane-eyre": "https://covers.openlibrary.org/b/isbn/9780486410265-M.jpg",
@@ -110,6 +111,7 @@ export function getBook(bookId: string) {
     } as Record<string, string>)[bookId],
     publicDomainUrl: ({
       frankenstein: "https://www.gutenberg.org/ebooks/84",
+      "frankenstein-or-the-modern-prometheus": "https://www.gutenberg.org/ebooks/84",
       dracula: "https://www.gutenberg.org/ebooks/345",
       "little-women": "https://www.gutenberg.org/ebooks/514",
       "jane-eyre": "https://www.gutenberg.org/ebooks/1260",
