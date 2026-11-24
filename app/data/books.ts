@@ -54,6 +54,7 @@ const localTextFiles: Record<string, string> = {
   "the-prince": "prince.txt",
   "the-art-of-war": "art-of-war.txt",
   "the-importance-of-being-earnest": "importance-earnest.txt",
+  "the-histories": "histories.txt",
 };
 
 const additionalGenreBooks: Book[] = [
