@@ -67,7 +67,7 @@ export default function Home() {
             All novels
           </a>
           <a
-            href="#books"
+            href="/about"
             style={{
               color: "#8b5e3c",
               textDecoration: "none",
@@ -77,7 +77,7 @@ export default function Home() {
             About
           </a>
           <a
-            href="#books"
+            href="/contact"
             style={{
               color: "#8b5e3c",
               textDecoration: "none",
