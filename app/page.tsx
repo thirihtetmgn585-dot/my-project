@@ -16,6 +16,24 @@ export default function Home() {
   useEffect(() => {
     window.localStorage.setItem("booklish-saved-books", JSON.stringify(savedBooks));
   }, [savedBooks]);
+
+  async function searchFromVoice(voiceQuery: string) {
+    const cleaned = voiceQuery.trim();
+    if (!cleaned) return;
+    setQuery(cleaned);
+    setIsLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/search?q=${encodeURIComponent(cleaned)}`);
+      const data = await response.json();
+      setResults(data.docs ?? []);
+    } catch {
+      setResults([]);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <main
       className="home-page"
@@ -174,7 +192,7 @@ export default function Home() {
           {isLoading ? "Searching..." : "Search"}
         </button>
       </div>
-      <VoiceSearch />
+      <VoiceSearch onSearch={searchFromVoice} />
       {query && (
         <p style={{ marginTop: "16px", color: "#3f5c55" }}>
           Searching for: {query}
