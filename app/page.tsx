@@ -362,8 +362,8 @@ export default function Home() {
             }}
           >
             <img
-              src="/alchemist.jpg"
-              alt="The Alchemist book cover"
+              src="/alice-cover.jpg"
+              alt="Alice's Adventures in Wonderland book cover"
               style={{
                 width: "100%",
                 height: "270px",
@@ -372,10 +372,10 @@ export default function Home() {
                 marginBottom: "18px",
               }}
             />
-            <h3>The Alchemist</h3>
-            <p>A story about dreams, courage, and finding your path.</p>
+            <h3>Alice&apos;s Adventures in Wonderland</h3>
+            <p>A public-domain adventure available to read in Booklish.</p>
             <a
-              href="/books/the-alchemist"
+              href="/books/alice-s-adventures-in-wonderland"
               style={{
                 color: "#8b5e3c",
                 fontWeight: "bold",
@@ -397,8 +397,8 @@ export default function Home() {
             }}
           >
             <img
-              src="/atomic-habits.jpg"
-              alt="Atomic Habits book cover"
+              src="/oz-cover.jpg"
+              alt="The Wonderful Wizard of Oz book cover"
               style={{
                 width: "100%",
                 height: "270px",
@@ -407,10 +407,10 @@ export default function Home() {
                 marginBottom: "18px",
               }}
             />
-            <h3>Atomic Habits</h3>
-            <p>Small changes that create powerful results.</p>
+            <h3>The Wonderful Wizard of Oz</h3>
+            <p>All 24 chapters are available to read in Booklish.</p>
             <a
-              href="/books/atomic-habits"
+              href="/books/the-wonderful-wizard-of-oz"
               style={{
                 color: "white",
                 fontWeight: "bold",
@@ -432,8 +432,8 @@ export default function Home() {
             }}
           >
             <img
-              src="/deep-work.jpg"
-              alt="Deep Work book cover"
+              src="https://covers.openlibrary.org/b/isbn/0486282112-M.jpg"
+              alt="Frankenstein book cover"
               style={{
                 width: "100%",
                 height: "270px",
@@ -442,10 +442,10 @@ export default function Home() {
                 marginBottom: "18px",
               }}
             />
-            <h3>Deep Work</h3>
-            <p>How to focus and produce meaningful work.</p>
+            <h3>Frankenstein; or, The Modern Prometheus</h3>
+            <p>A public-domain classic with chapters available in Booklish.</p>
             <a
-              href="/books/deep-work"
+              href="/books/frankenstein-or-the-modern-prometheus"
               style={{
                 color: "#241f1a",
                 fontWeight: "bold",
