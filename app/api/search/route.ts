@@ -27,6 +27,14 @@ function matchesSearch(value: string, query: string) {
   return queryWords.length > 0 && queryWords.every((word) => valueWords.includes(word));
 }
 
+function normalizeVoiceAliases(query: string) {
+  return query
+    .toLowerCase()
+    .replace(/the\s+secret\s+got\s+it/g, "the secret garden")
+    .replace(/secret\s+got\s+it/g, "secret garden")
+    .trim();
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q");
@@ -35,10 +43,11 @@ export async function GET(request: Request) {
     return NextResponse.json({ docs: [] });
   }
 
+  const searchQuery = normalizeVoiceAliases(query);
   const docs = books
     .filter((book) =>
       [book.title, book.originalAuthor, book.genre].some((value) =>
-        matchesSearch(value, query),
+        matchesSearch(value, searchQuery),
       ),
     )
     .map((book) => ({
