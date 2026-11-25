@@ -30,16 +30,6 @@ export default function BookVoice({ title, text }: { title: string; text: string
     await vapi.start(assistantId, {
       firstMessage: `We are discussing ${title}. Ask me about this book.`,
       variableValues: { bookTitle: title, bookText: text.slice(0, 12000) },
-      assistantOverrides: {
-        firstMessage: `We are discussing ${title}. Ask me about this book.`,
-        variableValues: { bookTitle: title, bookText: text.slice(0, 12000) },
-        model: {
-          messages: [{
-            role: "system",
-            content: `You are Booklish's book-only reading assistant. Discuss only the current book, ${title}, and only the supplied chapter text. If the user asks about another book or an unrelated topic, say: "I can only answer questions about ${title}." Never invent chapters, authors, or facts not present in the supplied text.`,
-          }],
-        },
-      },
     });
   }
 
