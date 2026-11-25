@@ -3,8 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 import Vapi from "@vapi-ai/web";
 
+type SpeechRecognitionLike = {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  start: () => void;
+  stop: () => void;
+  onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+};
+
+declare global {
+  interface Window {
+    SpeechRecognition?: new () => SpeechRecognitionLike;
+    webkitSpeechRecognition?: new () => SpeechRecognitionLike;
+  }
+}
+
 export default function VoiceSearch({ onSearch }: { onSearch?: (query: string) => void }) {
   const vapiRef = useRef<Vapi | null>(null);
+  const speechRef = useRef<SpeechRecognitionLike | null>(null);
   const [active, setActive] = useState(false);
   const [message, setMessage] = useState("Speak to search for a book");
 
@@ -26,6 +45,41 @@ export default function VoiceSearch({ onSearch }: { onSearch?: (query: string) =
   }, []);
 
   const toggleVoice = async () => {
+    const SpeechRecognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      if (speechRef.current) {
+        speechRef.current.stop();
+        speechRef.current = null;
+        setActive(false);
+        setMessage("Speak to search for a book");
+        return;
+      }
+      const speech = new SpeechRecognition();
+      speech.lang = "en-US";
+      speech.interimResults = false;
+      speech.maxAlternatives = 1;
+      speech.onresult = (event) => {
+        const transcript = event.results[0]?.[0]?.transcript?.trim();
+        if (transcript) {
+          setMessage(transcript);
+          onSearch?.(transcript);
+        }
+      };
+      speech.onerror = () => {
+        speechRef.current = null;
+        setActive(false);
+        setMessage("Voice error: check microphone permission and try again");
+      };
+      speech.onend = () => {
+        speechRef.current = null;
+        setActive(false);
+      };
+      speechRef.current = speech;
+      setActive(true);
+      setMessage("Listening…");
+      speech.start();
+      return;
+    }
     const vapi = vapiRef.current;
     const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
     if (!vapi || !assistantId) { setMessage("Add the Vapi public key and assistant ID first"); return; }
