@@ -18,6 +18,21 @@ export default function CreateBookPage() {
     try {
       const form = event.currentTarget;
       const formData = new FormData(form);
+      const coverFile = formData.get("coverFile");
+      if (coverFile instanceof File && coverFile.size > 0) {
+        if (coverFile.size > 2 * 1024 * 1024) {
+          setError("Cover image must be 2 MB or smaller.");
+          return;
+        }
+        const coverDataUrl = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = () => reject(new Error("Could not read cover image."));
+          reader.readAsDataURL(coverFile);
+        });
+        formData.set("coverUrl", coverDataUrl);
+      }
+      formData.delete("coverFile");
       const response = await fetch("/api/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,6 +94,11 @@ export default function CreateBookPage() {
           <label>
             Cover image URL
             <input name="coverUrl" type="url" placeholder="https://example.com/cover.jpg" />
+          </label>
+          <label>
+            Or upload a cover from this device
+            <input name="coverFile" type="file" accept="image/png,image/jpeg,image/webp" />
+            <small>PNG, JPG, or WebP up to 2 MB.</small>
           </label>
           <label>
             Description

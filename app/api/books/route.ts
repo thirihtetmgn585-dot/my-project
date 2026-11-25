@@ -16,6 +16,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Title, author, description, and reading text are required." }, { status: 400 });
     }
 
+    if (coverUrl && typeof coverUrl === "string" && coverUrl.startsWith("data:image/") && coverUrl.length > 3_000_000) {
+      return NextResponse.json({ error: "Cover image is too large. Please use an image under 2 MB." }, { status: 400 });
+    }
+
     const database = mongoClient.db("booklish");
     const result = await database.collection("books").insertOne({
       userId,
