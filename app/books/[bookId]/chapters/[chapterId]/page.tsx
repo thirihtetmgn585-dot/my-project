@@ -34,6 +34,19 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
           .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
           .filter((paragraph) => paragraph.length > 40);
       }
+
+      // Some public-domain editions use named sections or Roman-number headings
+      // instead of the word "CHAPTER". Keep every chapter readable by falling
+      // back to evenly paginated paragraphs when a heading cannot be detected.
+      if (publicDomainParagraphs.length === 0) {
+        const paragraphs = rawText
+          .replace(/\r/g, "")
+          .split(/\n\s*\n/)
+          .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+          .filter((paragraph) => paragraph.length > 80 && !/^the project gutenberg/i.test(paragraph));
+        const pageSize = Math.max(1, Math.ceil(paragraphs.length / book.chapters.length));
+        publicDomainParagraphs = paragraphs.slice(chapterIndex * pageSize, (chapterIndex + 1) * pageSize);
+      }
     } catch {
       publicDomainParagraphs = [];
     }
