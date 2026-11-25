@@ -22,7 +22,8 @@ function matchesSearch(value: string, query: string) {
   if (valueText.includes(queryText)) return true;
 
   const valueWords = normalizeWords(value);
-  const queryWords = normalizeWords(query);
+  const stopWords = new Set(["a", "an", "and", "for", "in", "of", "on", "or", "the", "to"]);
+  const queryWords = normalizeWords(query).filter((word) => !stopWords.has(word));
   return queryWords.length > 0 && queryWords.every((word) => valueWords.includes(word));
 }
 
