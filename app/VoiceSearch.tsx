@@ -45,6 +45,17 @@ export default function VoiceSearch({ onSearch }: { onSearch?: (query: string) =
   }, []);
 
   const toggleVoice = async () => {
+    const vapi = vapiRef.current;
+    const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+
+    // Keep the Vapi assistant as the primary path so its introduction and
+    // book-aware conversation still work. Use browser speech only if Vapi is
+    // not configured or cannot be used in the current browser.
+    if (vapi && assistantId) {
+      if (active) await vapi.stop(); else await vapi.start(assistantId);
+      return;
+    }
+
     const SpeechRecognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
     if (SpeechRecognition) {
       if (speechRef.current) {
@@ -80,10 +91,7 @@ export default function VoiceSearch({ onSearch }: { onSearch?: (query: string) =
       speech.start();
       return;
     }
-    const vapi = vapiRef.current;
-    const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
-    if (!vapi || !assistantId) { setMessage("Add the Vapi public key and assistant ID first"); return; }
-    if (active) await vapi.stop(); else await vapi.start(assistantId);
+    setMessage("Add the Vapi public key and assistant ID first");
   };
 
   return <div className="voice-search"><button type="button" onClick={toggleVoice} className="voice-search-button">{active ? "Stop voice search" : "🎙 Voice search"}</button><span>{message}</span></div>;
