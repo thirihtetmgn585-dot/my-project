@@ -1,10 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import VoiceSearch from "./VoiceSearch";
+
+type SearchResult = {
+  key: string;
+  title: string;
+  author_name?: string[];
+  localCover?: string;
+  cover_i?: number;
+  first_publish_year?: number;
+};
+
 export default function Home() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [savedBooks, setSavedBooks] = useState<string[]>(() => {
@@ -68,13 +79,13 @@ export default function Home() {
           >
             Create book
           </a>
-          <a
+          <Link
             href="/library"
             style={{ color: "#8b5e3c", textDecoration: "none", fontWeight: "bold" }}
           >
             My library
-          </a>
-          <a
+          </Link>
+          <Link
             href="/books"
             style={{
               color: "#8b5e3c",
@@ -83,7 +94,7 @@ export default function Home() {
             }}
           >
             All novels
-          </a>
+          </Link>
           <a
             href="/about"
             style={{
@@ -392,7 +403,7 @@ export default function Home() {
             />
             <h3>Alice&apos;s Adventures in Wonderland</h3>
             <p>A public-domain adventure available to read in Booklish.</p>
-            <a
+            <Link
               href="/books/alice-s-adventures-in-wonderland"
               style={{
                 color: "#8b5e3c",
@@ -401,7 +412,7 @@ export default function Home() {
               }}
             >
               View book →
-            </a>
+            </Link>
           </article>
 
           <article
@@ -427,7 +438,7 @@ export default function Home() {
             />
             <h3>The Wonderful Wizard of Oz</h3>
             <p>All 24 chapters are available to read in Booklish.</p>
-            <a
+            <Link
               href="/books/the-wonderful-wizard-of-oz"
               style={{
                 color: "white",
@@ -436,7 +447,7 @@ export default function Home() {
               }}
             >
               View book →
-            </a>
+            </Link>
           </article>
 
           <article
@@ -462,7 +473,7 @@ export default function Home() {
             />
             <h3>Frankenstein; or, The Modern Prometheus</h3>
             <p>A public-domain classic with chapters available in Booklish.</p>
-            <a
+            <Link
               href="/books/frankenstein-or-the-modern-prometheus"
               style={{
                 color: "#241f1a",
@@ -471,7 +482,7 @@ export default function Home() {
               }}
             >
               View book →
-            </a>
+            </Link>
           </article>
         </div>
       </section>
