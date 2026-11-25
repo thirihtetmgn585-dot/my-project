@@ -26,7 +26,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ bookId
         .split(/\n(?=(?:CHAPTER\s+(?:[A-Z0-9IVXLCDM]+)|\s*[IVXLCDM]{1,4}\.\s+[A-Z]|\s*[IVXLCDM]{1,4}\s*\n\s*[A-Z]|\s*\d{1,2}\s*\n\s*[A-Z]|\s*\d{1,2}\.\s+[A-Z]))/i)
       const firstChapterIndex = allBlocks.findIndex((block) => /^\s*(?:CHAPTER\s+|I(?:\.\s+|\s*$)|1(?:\.\s+|\s*$))/i.test(block));
       const chapterBlocks = (firstChapterIndex >= 0 ? allBlocks.slice(firstChapterIndex) : allBlocks)
-        .filter((block) => block.trim().length > 500);
+        .filter((block) => block.trim().length > 80);
       const selectedBlock = chapterBlocks[chapterIndex];
       if (selectedBlock) {
         publicDomainParagraphs = selectedBlock
